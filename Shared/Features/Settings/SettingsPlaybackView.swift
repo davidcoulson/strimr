@@ -113,6 +113,8 @@ struct SettingsPlaybackView: View {
             }
 
             scrubThumbnailSection
+
+            notifySection
         }
         .insetListStyle()
         .navigationTitle("settings.playback.title")
@@ -162,6 +164,23 @@ struct SettingsPlaybackView: View {
                 }
             },
         )
+    }
+
+    private var notifySection: some View {
+        Section {
+            TextField(
+                "settings.playback.notifyURL",
+                text: viewModel.notifyURLBinding,
+                prompt: Text(verbatim: "https://example.com/playback"),
+            )
+            #if os(iOS)
+            .keyboardType(.URL)
+            .textInputAutocapitalization(.never)
+            #endif
+            .autocorrectionDisabled()
+        } footer: {
+            Text("settings.playback.notifyURL.footer")
+        }
     }
 
     private var scrubThumbnailSection: some View {
